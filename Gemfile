@@ -51,3 +51,9 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+
+##### ADDED GEMS
+
+# Use jQuery UI
+gem 'jquery-ui-rails' # also added ( //= require jquery-ui/effects/effect-blind ) in application.js
