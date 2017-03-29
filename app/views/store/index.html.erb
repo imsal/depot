@@ -2,19 +2,23 @@
 
 <h1>Your Pragmatic Catalog</h1>
 
+<h5>You've visited our home page
+    <%= pluralize(@store_session_count, 'time') %>.</h5>
 
 <% cache @products do %>
 <% @products.each do |product| %>
 <% cache product do %>
-  <div class="entry">
+<div class="entry">
     <%= image_tag(product.image_url) %>
     <h3><%= product.title %></h3>
 
-    <%= sanitize(product.description) %> <!-- sanitize allows to use HTML stylings -->
+    <%= sanitize(product.description) %>
+    <!-- sanitize allows to use HTML stylings -->
     <div class="price_line">
-      <span class="price"><%= number_to_currency(product.price) %></span>
+        <span class="price"><%= number_to_currency(product.price) %></span>
+        <%= button_to 'Add to Cart', line_items_path(product_id: product) %>
     </div>
-  </div>
+</div>
 <% end %>
 <% end %>
 <% end %>
