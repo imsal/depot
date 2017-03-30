@@ -2,10 +2,17 @@
 
 <table>
 
+<tr>
+    <th>Item</th>
+    <th>Quantity</th>
+    <th>Each</th>
+    <th>Subtotal</th>
+</tr>
+
   <%= render(@cart.line_items) %> <!-- see _line_item.html.erb -->
 
     <tr class="total_line">
-        <td colspan="2">Total</td>
+        <td colspan="3">Total</td>
         <td class="total_cell"><%= number_to_currency(@cart.total_price) %></td>
     </tr>
 
