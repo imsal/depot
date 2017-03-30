@@ -4,10 +4,10 @@
     <tr>
         <% end %>
         <td><%= line_item.product.title %></td>
-        <td><%= form_for line_item do |f| %>
+        <td><%= form_for line_item, remote: true do |f| %>
             <%= f.text_field :quantity, size: 5 %>
             <!-- <%# content_for(:update_quantities) do %> -->
-            <%= f.submit 'Update', method: :patch %>
+            <%= f.submit 'Update', method: :patch, remote: true %>
             <!-- <%# end %> -->
             <% end %>
         </td>

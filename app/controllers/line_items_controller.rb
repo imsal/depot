@@ -1,6 +1,6 @@
 class LineItemsController < ApplicationController
   include CurrentCart
-  before_action :set_cart, only: [:create]
+  before_action :set_cart, only: [:create, :update]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
   # GET /line_items
@@ -50,7 +50,7 @@ class LineItemsController < ApplicationController
           @line_item.destroy
         end
         format.html { redirect_to store_index_url }
-        # format.js
+        format.js
         format.json { render :show, status: :ok, location: @line_item }
 
       else
