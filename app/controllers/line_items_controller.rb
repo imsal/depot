@@ -50,6 +50,7 @@ class LineItemsController < ApplicationController
           @line_item.destroy
         end
         format.html { redirect_to store_index_url }
+        # format.js
         format.json { render :show, status: :ok, location: @line_item }
 
       else

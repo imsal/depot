@@ -6,9 +6,9 @@
         <td><%= line_item.product.title %></td>
         <td><%= form_for line_item do |f| %>
             <%= f.text_field :quantity, size: 5 %>
-              <!-- <%# content_for(:update_quantities) do %> -->
-              <%= f.submit 'Update', method: :patch %>
-              <!-- <%# end %> -->
+            <!-- <%# content_for(:update_quantities) do %> -->
+            <%= f.submit 'Update', method: :patch %>
+            <!-- <%# end %> -->
             <% end %>
         </td>
         <!-- <td><%#= line_item.quantity %></td> -->

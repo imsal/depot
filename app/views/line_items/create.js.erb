@@ -1,4 +1,9 @@
+// animates the cart when an item is added
+if ($('#cart tr').length == 3) { $('#cart').show('blind', 1000); }
+
+// renders the newly created line item (see controller #create)
 $('#cart').html("<%=j render(@cart) %>");
 
+// highlights the newly creawted line item
 $('#current_item').css({'background-color': '#88ff88'}).
         animate({'background-color': '#114411'}, 1000);
