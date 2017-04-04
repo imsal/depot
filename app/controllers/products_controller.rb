@@ -1,10 +1,16 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :who_bought]
 
   # GET /products
   # GET /products.json
   def index
     @products = Product.all
+
+    # respond_to do |format|
+    #   format.html
+    #   format.json
+    # end
+
   end
 
   # GET /products/1
@@ -46,8 +52,10 @@ class ProductsController < ApplicationController
         format.json { render :show, status: :ok, location: @product }
 
         @products = Product.all
+
         ActionCable.server.broadcast 'products',
           html: render_to_string('store/index', layout:false)
+
       else
         format.html { render :edit }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -75,4 +83,34 @@ class ProductsController < ApplicationController
     def product_params
       params.require(:product).permit(:title, :description, :image_url, :price)
     end
+
+    def who_bought
+      # @product = Product.find(params[:id])
+      @latest_order = @product.orders.order(:updated_at).last
+      if stale?(@latest_order)
+        respond_to do |format|
+          format.atom # by adding format.atom, Rails looks for a template named who_bought.atom.builder
+          ## playtime
+          format.xml { render( :xml => @product.to_xml(
+            :only => [ :title, :updated_at ],
+            :skip_types => true,
+            :include => {
+              :orders => {
+                :except => [ :created_at, :updated_at ],
+                :skip_types => true,
+                :include => {
+                  :line_items => {
+                    :skip_types => true,
+                    :except => [ :created_at, :updated_at, :cart_id, :order_id ]
+                  }
+                }
+              }
+            }
+            )) }
+          format.json {render :json => @product.to_json(:include => :orders)}
+          format.html
+        end
+      end
+    end
+
 end

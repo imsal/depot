@@ -44,20 +44,29 @@ class LineItemsController < ApplicationController
   # PATCH/PUT /line_items/1
   # PATCH/PUT /line_items/1.json
   def update
+
     respond_to do |format|
       if @line_item.update(line_item_params)
+
         if @line_item.quantity == 0
           @line_item.destroy
         end
+
         format.html { redirect_to store_index_url }
-        format.js
+        if is_quantity_the_same?
+          format.js { @current_item = nil }
+        else
+          format.js { @current_item = @line_item}
+        end
         format.json { render :show, status: :ok, location: @line_item }
 
       else
-        format.html { render :edit }
-        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+        format.html { redirect_to store_index_url}
+        # format.html { render :edit }
+        # format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # DELETE /line_items/1
@@ -80,6 +89,10 @@ class LineItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def line_item_params
       params.require(:line_item).permit(:product_id, :quantity)
+    end
+
+    def is_quantity_the_same?
+        params[:line_item][:quantity] == @line_item.quantity
     end
 
 

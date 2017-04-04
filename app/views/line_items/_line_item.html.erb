@@ -14,7 +14,15 @@
         <!-- <td><%#= line_item.quantity %></td> -->
 
         <td><%= number_to_currency(line_item.product_price) %></td>
-        <td class='item_price'><%= number_to_currency(line_item.total_price) %></td>
+
+        <% if line_item == @current_item %>
+                <td id='current_item_price' class='item_price'>
+                  <% else %>
+                  <td class='item_price'>
+                    <% end %>
+                    <%= number_to_currency(line_item.total_price) %>
+
+                </td>
 
         <!-- <td>
           <%#= yield(:update_quantities) %>

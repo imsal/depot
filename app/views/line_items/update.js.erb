@@ -1,2 +1,8 @@
 // renders the newly created line item (see controller #create)
 $('#cart').html("<%=j render(@cart) %>");
+
+
+// highlights the newly updated subtotal
+
+$('#current_item_price').css({'background-color': '#88ff88'}).
+        animate({'background-color': '#114411'}, 1000);

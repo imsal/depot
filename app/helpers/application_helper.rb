@@ -9,4 +9,9 @@ module ApplicationHelper
     content_tag('div', attributes, &block)
   end
 
+
+  # def quantity_times_price
+  #   quantity * product.price
+  # end
+
 end
